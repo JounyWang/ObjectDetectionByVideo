@@ -2,7 +2,7 @@
 # @Author: linjie
 # @Date:   2017-11-06 17:39:18
 # @Last Modified  by:  linjie
-# @Last Modified time: 2017-11-06 18:00:17
+# @Last Modified time: 2017-11-07 09:49:51
 import os
 import cv2
 import time
@@ -104,7 +104,7 @@ if __name__ == '__main__':
                                       width=args.width,
                                       height=args.height).start()
     fps = FPS().start()
-
+    i=0
     while True:
         frame = video_capture.read()
         input_q.put(frame)
@@ -113,8 +113,11 @@ if __name__ == '__main__':
 
         output_rgb = cv2.cvtColor(output_q.get(), cv2.COLOR_RGB2BGR)
         cv2.imshow('Video', output_rgb)
-        fps.update()
 
+        # cv2.imwrite("obj/obj_"+str(i)+".jpg",output_rgb)
+        
+        fps.update()
+        i=i+1
         print('[INFO] elapsed time: {:.2f}'.format(time.time() - t))
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
